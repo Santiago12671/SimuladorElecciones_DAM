@@ -12,17 +12,16 @@ public class ConexionBBDD {
 
     static {
         try {
-            // Ajusta la ruta si tu archivo está en una carpeta distinta
+            // Asegúrate de que la carpeta 'resources' existe y contiene el archivo
             props.load(new FileInputStream("resources/database.properties"));
         } catch (IOException e) {
-            System.err.println("No se pudo cargar el archivo de propiedades");
+            System.err.println("Error: No se encontró el archivo database.properties");
         }
     }
 
     public static ArrayList<Comunidad> obtenerComunidades() {
         ArrayList<Comunidad> lista = new ArrayList<>();
-        // Query para la tabla de tu SQL
-        String sql = "SELECT * FROM PORCENTAJES_RANGOEDAD";
+        String sql = "SELECT * FROM PORCENTAJES_RANGOEDAD"; //
 
         try (Connection con = DriverManager.getConnection(
                 props.getProperty("database.url"),
@@ -32,6 +31,7 @@ public class ConexionBBDD {
              ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
+                // Aquí es donde llamamos al nuevo constructor de Comunidad
                 lista.add(new Comunidad(
                     rs.getString("NOMBRE_COMUNIDAD"),
                     rs.getInt("TOTAL_HABITANTES"),
