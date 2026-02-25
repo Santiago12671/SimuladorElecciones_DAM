@@ -7,4 +7,4 @@ public enum Partido {
     public static Partido getById(int id) {
         return values()[id];
     }
-}
+}	
